@@ -40,12 +40,11 @@ const ColorList = ({ colors, updateColors }) => {
   };
 
   const deleteColor = (color) => {
-    const id = color.id;
     axiosWithAuth()
-      .delete(`/api/colors/${id}`)
+      .delete(`/api/colors/${color.id}`)
       .then((response) => {
-        deleteId = response.data;
-        updateColors(colors.filter());
+        const deleteId = response.data;
+        updateColors(colors.filter((color) => !(color.id === deleteId)));
       })
       .catch((error) => console.log(error));
   };
